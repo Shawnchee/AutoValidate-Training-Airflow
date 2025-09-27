@@ -5,6 +5,7 @@ import tempfile
 from datetime import datetime
 from sentence_transformers import SentenceTransformer, InputExample, losses
 from torch.utils.data import DataLoader
+from datasets import Dataset
 
 def train_model(**kwargs):
     """Train the model with the fetched data"""
@@ -54,7 +55,9 @@ def train_model(**kwargs):
         print(f"Created {len(train_examples)} training examples")
         
         # Create data loader
-        train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=4)
+        torch.set_num_threads(1)
+        batch_size = 2
+        train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=batch_size, num_workers=0)
         
         # Define loss function
         train_loss = losses.MultipleNegativesRankingLoss(model)
@@ -73,7 +76,7 @@ def train_model(**kwargs):
             optimizer_params={'lr': 1e-5},
             warmup_steps=warmup_steps,
             output_path=new_model_path,
-            show_progress_bar=True
+            show_progress_bar=False
         )
         
         print(f"Model fine-tuned and saved to {new_model_path}")
