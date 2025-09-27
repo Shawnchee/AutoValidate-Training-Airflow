@@ -11,8 +11,8 @@ from utils.cleanup_utils import cleanup_temp_files
 # Define the DAG
 with DAG(
     dag_id='embedding_model_training_dag',
-    # TODO: Switch to 1 week interval in production x
-    schedule_interval='*/10 * * * *',  # Run every 10 minutes
+    # TODO: Switch to 1 week interval in production
+    schedule_interval='0 0 * * 1',  # Run every Monday at midnight
     start_date=datetime(2023, 10, 1),
     catchup=False,
     tags=['embedding', 'training'],
