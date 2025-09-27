@@ -1,4 +1,4 @@
-FROM apache/airflow:2.7.1
+FROM apache/airflow:2.7.1-python3.9
 
 USER root
 # Install minimal system dependencies
