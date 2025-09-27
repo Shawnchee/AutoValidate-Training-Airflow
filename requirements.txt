@@ -1,7 +1,19 @@
 apache-airflow>=2.7.1
 pandas>=1.5.0
-torch>=2.0.0
-sentence-transformers>=2.2.2
+
+# CPU-only PyTorch stack
+torch==2.2.0+cpu
+torchvision==0.17.0+cpu
+torchaudio==2.2.0+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# NLP + ML tools
+transformers>=4.41.0
+sentence-transformers==5.1.0
+datasets
+accelerate>=0.26.0
+
+# Integrations
 supabase>=1.0.0
 huggingface-hub>=0.15.1
 zipfile36>=0.1.3
