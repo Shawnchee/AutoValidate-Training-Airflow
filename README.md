@@ -10,8 +10,6 @@
 - Setup (build & run)
 - Required Airflow Variables / Secrets
 - How it works (task flow)
-- File layout
-- Development & troubleshooting notes
 
 ## Overview
 - Purpose: continually improve an embedding model using user interactions collected in the application. The pipeline downloads the latest base model from HF, fetches training pairs (typo → corrected) from Supabase, fine-tunes using MultipleNegativesRankingLoss, validates the model, and can push the updated model back to Hugging Face.
