@@ -26,7 +26,17 @@ def train_model(**kwargs):
             return model_dir
         
         # Load model
-        model_path = os.path.join(model_dir, "finetuned-embedding-model")
+        # First, check if there's a direct finetuned-embedding-model directory
+        direct_path = os.path.join(model_dir, "finetuned-embedding-model")
+        if os.path.exists(direct_path) and os.path.exists(os.path.join(direct_path, "config.json")):
+            model_path = direct_path
+        else:
+            # Search for any directory containing config.json (the actual model)
+            for root, dirs, files in os.walk(model_dir):
+                if "config.json" in files:
+                    model_path = root
+                    break
+        print(f"Loading model from: {model_path}")
         model = SentenceTransformer(model_path)
         
         # Generate timestamp for the new model
